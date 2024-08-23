@@ -25,13 +25,13 @@ const findAll = async (req, res) => {
   res.send(users);
 };
 
-/*const findById = async (req, res) => {
+const findById = async (req, res) => {
   const id = req.params.id;
   const user = await userService.findByIdService(id);
   if (!user) {
     return res.status(400).send({ message: "Não há usuários." });
   }
   return res.send(user);
-};*/
+};
 
 module.exports = { create, findAll, findById };
