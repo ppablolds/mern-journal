@@ -42,7 +42,7 @@ const findById = async (req, res) => {
   res.status(200).json(user);
 };
 
-const update = async (req, res) => {
+const updateUser = async (req, res) => {
   const { name, username, email, password } = req.body;
 
   if (!name && !username && !email && !password) {
@@ -61,9 +61,31 @@ const update = async (req, res) => {
     return res.status(404).json({ message: "Usuário não encontrado." });
   }
 
-  await userService.updateService(id, name, username, email, password);
+  await userService.updateUserService(id, name, username, email, password);
 
   res.status(200).json({ message: "Usuário atualizado com sucesso." });
 };
 
-module.exports = { create, findAll, findById, update };
+const deleteUser = async (req, res) => {
+  const id = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ message: "ID Inválido." });
+  }
+
+  if (!id) {
+    return res.status(404).json({ message: "ID não encontrado." });
+  }
+
+  const user = await userService.findByIdService(id);
+
+  if (!user) {
+    return res.status(404).json({ message: "Usuário não encontrado." });
+  }
+
+  await userService.deleteUserService(user);
+
+  res.status(200).json({ message: "Usuário excluido." });
+};
+
+module.exports = { create, findAll, findById, updateUser, deleteUser };
