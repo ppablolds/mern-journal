@@ -1,6 +1,6 @@
-const express = require("express");
-const connectDatabase = require("./database/db");
-const userRoute = require("./routes/user.route");
+import express from "express";
+import connectDatabase from "./database/db.js";
+import userRoute from "./routes/user.route.js";
 
 const app = express();
 app.use(express.json());

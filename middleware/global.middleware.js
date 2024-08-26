@@ -1,29 +1,35 @@
-const mongoose = require("mongoose");
-const userService = require("../services/user.service");
+import mongoose from "mongoose";
+import userService from "../services/user.service.js";
 
-const validId = (req, res, next) => {
-  const id = req.params.id;
+export const validId = (req, res, next) => {
+  try {
+    const id = req.params.id;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ message: "ID Inválido." });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ message: "ID Inválido." });
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-
-  next();
 };
 
-const validUser = async (req, res, next) => {
-  const id = req.params.id;
+export const validUser = async (req, res, next) => {
+  try {
+    const id = req.params.id;
 
-  const user = await userService.findByIdService(id);
+    const user = await userService.findByIdService(id);
 
-  if (!user) {
-    return res.status(404).json({ message: "Usuário não encontrado." });
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado." });
+    }
+
+    req.id = id;
+    req.user = user;
+
+    next();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-
-  req.id = id;
-  req.user = user;
-
-  next();
 };
-
-module.exports = { validId, validUser };
