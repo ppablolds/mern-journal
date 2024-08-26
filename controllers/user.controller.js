@@ -1,5 +1,4 @@
 const userService = require("../services/user.service");
-const mongoose = require("mongoose");
 
 const create = async (req, res) => {
   const { name, username, email, password } = req.body;
@@ -27,17 +26,7 @@ const findAll = async (req, res) => {
 };
 
 const findById = async (req, res) => {
-  const id = req.params.id;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ message: "ID Inválido." });
-  }
-
-  const user = await userService.findByIdService(id);
-
-  if (!user) {
-    return res.status(404).json({ message: "Usuário não encontrado." });
-  }
+  const user = req.user;
 
   res.status(200).json(user);
 };
@@ -49,17 +38,7 @@ const updateUser = async (req, res) => {
     res.json({ message: "Por favor alterar algum dado!" });
   }
 
-  const id = req.params.id;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ message: "ID Inválido." });
-  }
-
-  const user = await userService.findByIdService(id);
-
-  if (!user) {
-    return res.status(404).json({ message: "Usuário não encontrado." });
-  }
+  const id = req.id;
 
   await userService.updateUserService(id, name, username, email, password);
 
@@ -67,20 +46,10 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const id = req.params.id;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ message: "ID Inválido." });
-  }
+  const { id, user } = req;
 
   if (!id) {
     return res.status(404).json({ message: "ID não encontrado." });
-  }
-
-  const user = await userService.findByIdService(id);
-
-  if (!user) {
-    return res.status(404).json({ message: "Usuário não encontrado." });
   }
 
   await userService.deleteUserService(user);
