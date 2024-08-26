@@ -3,3 +3,4 @@ node_modules
 
 ##Arquivos de config
 package-lock.json
+.env

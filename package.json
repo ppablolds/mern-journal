@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "Pablo Silva",
@@ -12,6 +12,7 @@
   "description": "API for journal SPA",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.5.3"
   }
