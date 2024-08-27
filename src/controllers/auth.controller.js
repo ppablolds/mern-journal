@@ -17,7 +17,9 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Usuário ou senha inválida." });
     }
 
-    res.status(200).json({ message: "Login feito com sucesso." });
+    const token = authService.tokenGeneretor(user.id);
+
+    res.status(200).json({token});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
