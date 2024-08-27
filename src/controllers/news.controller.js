@@ -12,7 +12,7 @@ const createPostController = async (req, res) => {
       title,
       text,
       banner,
-      user: { _id: "66ca4918adbe4c74b6b52df9" },
+      user: req.userId,
     });
 
     res.status(200).json({ message: "Post criado com sucesso!" });
