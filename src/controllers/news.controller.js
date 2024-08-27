@@ -12,7 +12,7 @@ const createPostController = async (req, res) => {
       title,
       text,
       banner,
-      id: "objectidfake1",
+      user: { _id: "66ca4918adbe4c74b6b52df9" },
     });
 
     res.status(200).json({ message: "Post criado com sucesso!" });
@@ -21,10 +21,17 @@ const createPostController = async (req, res) => {
   }
 };
 
-const getAllPostController = (req, res) => {
-  const news = [];
+const getAllPostController = async (req, res) => {
+  try {
+    const posts = await newsService.getAllPostsService();
 
-  res.status(200).json(news);
+    if (posts.length === 0) {
+      res.status(400).json({ message: "Não há usuários." });
+    }
+    res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export default { createPostController, getAllPostController };
