@@ -50,7 +50,7 @@ const getAllPostController = async (req, res) => {
       previus != null ? `${currentUrl}?limit=${limit}&offset=${previus}` : null;
 
     if (posts.length === 0) {
-      res.status(400).json({ message: "Não há usuários." });
+      res.status(400).json({ message: "Não há posts." });
     }
     res.status(200).json({
       limit,
@@ -174,6 +174,29 @@ const getPostUserController = async (req, res) => {
   }
 };
 
+const updatePostController = async (req, res) => {
+  try {
+    const { title, text, banner } = req.body;
+    const { id } = req.params;
+
+    if (!title && !text && !banner) {
+      res.json({ message: "Por favor inserir todos os dados!" });
+    }
+
+    const posts = await newsService.findPostByIdService(id);
+
+    if (posts.user._id != req.userId) {
+      res.status(400).json({ message: "Você Não pode modificar este post." });
+    }
+
+    await newsService.updatePostService(id, title, text, banner);
+
+    res.status(200).json({ message: "Post atualizado com sucesso." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export default {
   createPostController,
   getAllPostController,
@@ -181,4 +204,5 @@ export default {
   findPostByIdController,
   searchPostsController,
   getPostUserController,
+  updatePostController,
 };
