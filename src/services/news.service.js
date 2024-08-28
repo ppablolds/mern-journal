@@ -13,7 +13,12 @@ const searchPostService = (title) =>
 const getPostUserService = (id) =>
   News.find({ user: id }).sort({ _id: -1 }).populate("user");
 const updatePostService = (id, title, text, banner) =>
-  News.findOneAndUpdate({ _id: id }, { title, text, banner }, { rawResult: true });
+  News.findOneAndUpdate(
+    { _id: id },
+    { title, text, banner },
+    { rawResult: true }
+  );
+const deletePostService = (id) => News.findOneAndDelete({ _id: id });
 
 export default {
   createPostService,
@@ -24,4 +29,5 @@ export default {
   searchPostService,
   getPostUserService,
   updatePostService,
+  deletePostService,
 };
