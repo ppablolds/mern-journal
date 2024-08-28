@@ -6,5 +6,6 @@ const router = Router();
 
 router.post("/", authMiddleware, newsController.createPostController);
 router.get("/", newsController.getAllPostController);
+router.get("/top", newsController.topPosts);
 
 export default router;

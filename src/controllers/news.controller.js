@@ -38,7 +38,7 @@ const getAllPostController = async (req, res) => {
 
     const posts = await newsService.getAllPostsService(offset, limit);
 
-    const total = await newsService.countNews();
+    const total = await newsService.countNewsService();
     const currentUrl = req.baseUrl;
 
     const next = offset + limit;
@@ -74,4 +74,29 @@ const getAllPostController = async (req, res) => {
   }
 };
 
-export default { createPostController, getAllPostController };
+const topPosts = async (req, res) => {
+  try {
+    const post = await newsService.topNewsService();
+
+    if (!post) {
+      return res.status(400);
+    }
+
+    res.status(200).json({
+      post: {
+        id: post._id,
+        title: post.title,
+        text: post.text,
+        banner: post.banner,
+        likes: post.likes,
+        comments: post.comments,
+        name: post.user.name,
+        username: post.user.username,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export default { createPostController, getAllPostController, topPosts };
