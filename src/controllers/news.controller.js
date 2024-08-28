@@ -74,7 +74,7 @@ const getAllPostController = async (req, res) => {
   }
 };
 
-const topPosts = async (req, res) => {
+const topPostsController = async (req, res) => {
   try {
     const post = await newsService.topNewsService();
 
@@ -99,4 +99,32 @@ const topPosts = async (req, res) => {
   }
 };
 
-export default { createPostController, getAllPostController, topPosts };
+const findPostByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const post = await newsService.findPostByIdService(id);
+
+    res.status(200).json({
+      post: {
+        id: post._id,
+        title: post.title,
+        text: post.text,
+        banner: post.banner,
+        likes: post.likes,
+        comments: post.comments,
+        name: post.user.name,
+        username: post.user.username,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export default {
+  createPostController,
+  getAllPostController,
+  topPostsController,
+  findPostByIdController,
+};
