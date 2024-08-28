@@ -151,10 +151,34 @@ const searchPostsController = async (req, res) => {
   }
 };
 
+const getPostUserController = async (req, res) => {
+  try {
+    const id = req.userId;
+
+    const posts = await newsService.getPostUserService(id);
+
+    res.status(200).json({
+      results: posts.map((item) => ({
+        id: item._id,
+        title: item.title,
+        text: item.text,
+        banner: item.banner,
+        likes: item.likes,
+        comments: item.comments,
+        name: item.user.name,
+        username: item.user.username,
+      })),
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export default {
   createPostController,
   getAllPostController,
   topPostsController,
   findPostByIdController,
   searchPostsController,
+  getPostUserController,
 };

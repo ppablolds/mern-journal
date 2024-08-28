@@ -8,6 +8,7 @@ router.post("/", authMiddleware, newsController.createPostController);
 router.get("/", newsController.getAllPostController);
 router.get("/top", newsController.topPostsController);
 router.get("/search", newsController.searchPostsController);
+router.get("/byUser", authMiddleware, newsController.getPostUserController);
 
 router.get("/:id", authMiddleware, newsController.findPostByIdController);
 

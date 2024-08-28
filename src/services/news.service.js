@@ -10,6 +10,8 @@ const searchPostService = (title) =>
   News.find({ title: { $regex: `${title || ""}`, $options: "i" } })
     .sort({ _id: -1 })
     .populate("user");
+const getPostUserService = (id) =>
+  News.find({ user: id }).sort({ _id: -1 }).populate("user");
 
 export default {
   createPostService,
@@ -18,4 +20,5 @@ export default {
   topNewsService,
   findPostByIdService,
   searchPostService,
+  getPostUserService,
 };
