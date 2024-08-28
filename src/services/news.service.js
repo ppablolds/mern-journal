@@ -6,6 +6,10 @@ const getAllPostsService = (offset, limit) =>
 const countNewsService = () => News.countDocuments();
 const topNewsService = () => News.findOne().sort({ _id: -1 }).populate("user");
 const findPostByIdService = (id) => News.findById(id).populate("user");
+const searchPostService = (title) =>
+  News.find({ title: { $regex: `${title || ""}`, $options: "i" } })
+    .sort({ _id: -1 })
+    .populate("user");
 
 export default {
   createPostService,
@@ -13,4 +17,5 @@ export default {
   countNewsService,
   topNewsService,
   findPostByIdService,
+  searchPostService,
 };

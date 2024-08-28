@@ -7,6 +7,8 @@ const router = Router();
 router.post("/", authMiddleware, newsController.createPostController);
 router.get("/", newsController.getAllPostController);
 router.get("/top", newsController.topPostsController);
-router.get("/:id", newsController.findPostByIdController);
+router.get("/search", newsController.searchPostsController);
+
+router.get("/:id", authMiddleware, newsController.findPostByIdController);
 
 export default router;

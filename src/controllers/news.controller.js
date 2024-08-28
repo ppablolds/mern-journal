@@ -122,9 +122,39 @@ const findPostByIdController = async (req, res) => {
   }
 };
 
+const searchPostsController = async (req, res) => {
+  try {
+    const { title } = req.query;
+
+    const posts = await newsService.searchPostService(title);
+
+    if (posts.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Não há postagem com essa nome." });
+    }
+
+    res.status(200).json({
+      results: posts.map((item) => ({
+        id: item._id,
+        title: item.title,
+        text: item.text,
+        banner: item.banner,
+        likes: item.likes,
+        comments: item.comments,
+        name: item.user.name,
+        username: item.user.username,
+      })),
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export default {
   createPostController,
   getAllPostController,
   topPostsController,
   findPostByIdController,
+  searchPostsController,
 };
