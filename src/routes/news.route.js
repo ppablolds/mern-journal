@@ -13,6 +13,7 @@ router.get("/byUser", authMiddleware, newsController.getPostUserController);
 router.get("/:id", authMiddleware, newsController.findPostByIdController);
 
 router.patch("/:id", authMiddleware, newsController.updatePostController);
+router.patch("/like/:id", authMiddleware, newsController.likePostControler);
 
 router.delete("/:id", authMiddleware, newsController.deletePostController);
 

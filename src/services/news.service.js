@@ -19,6 +19,13 @@ const updatePostService = (id, title, text, banner) =>
     { rawResult: true }
   );
 const deletePostService = (id) => News.findOneAndDelete({ _id: id });
+const likePostService = (idNews, userId) =>
+  News.findOneAndUpdate(
+    { _id: idNews, "likes.userId": { $nin: [userId] } },
+    { $push: { likes: { userId, created: new Date() } } }
+  );
+const deleteLikePostService = (idNews, userId) =>
+  News.findOneAndUpdate({ _id: idNews }, { $pull: { likes: { userId } } });
 
 export default {
   createPostService,
@@ -30,4 +37,6 @@ export default {
   getPostUserService,
   updatePostService,
   deletePostService,
+  likePostService,
+  deleteLikePostService,
 };

@@ -215,6 +215,24 @@ const deletePostController = async (req, res) => {
   }
 };
 
+const likePostControler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.userId;
+
+    const postLiked = await newsService.likePostService(id, userId);
+
+    if (!postLiked) {
+      await newsService.deleteLikePostService(id, userId);
+      return res.status(200).json({ message: "Like removido." })
+    }
+
+    res.status(200).json({ message: "Liked" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export default {
   createPostController,
   getAllPostController,
@@ -224,4 +242,5 @@ export default {
   getPostUserController,
   updatePostController,
   deletePostController,
+  likePostControler,
 };
