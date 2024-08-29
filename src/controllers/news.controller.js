@@ -224,10 +224,55 @@ const likePostControler = async (req, res) => {
 
     if (!postLiked) {
       await newsService.deleteLikePostService(id, userId);
-      return res.status(200).json({ message: "Like removido." })
+      return res.status(200).json({ message: "Like removido." });
     }
 
     res.status(200).json({ message: "Liked" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const commentAddControler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.userId;
+    const { comments } = req.body;
+
+    if (!comments) {
+      res.status(400).json({ message: "Escrever um comentário." });
+    }
+
+    await newsService.commentAddService(id, userId, comments);
+
+    res.status(200).json({ message: "Comentado com sucesso." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deleteCommentPostController = async (req, res) => {
+  try {
+    const { idNews, idComment } = req.params;
+    const userId = req.userId;
+
+    const commentDeleted = await newsService.deleteCommentService(
+      idNews,
+      idComment,
+      userId
+    );
+
+    const commentFinder = commentDeleted.comments.find(
+      (comment) => comment.idComment === idComment
+    );
+
+    if (commentFinder.userId !== userId) {
+      return res
+        .status(400)
+        .json({ message: "Esse comentário não pode ser apagado por você." });
+    }
+
+    res.status(200).json({ message: "Comentário apagado com sucesso." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -243,4 +288,6 @@ export default {
   updatePostController,
   deletePostController,
   likePostControler,
+  commentAddControler,
+  deleteCommentPostController,
 };
