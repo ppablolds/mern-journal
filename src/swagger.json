@@ -19,7 +19,7 @@
     }
   ],
   "paths": {
-    "/user/create": {
+    "/user/": {
       "post": {
         "summary": "Create a new user",
         "description": "Route responsible for creating a new user",
@@ -61,7 +61,7 @@
         }
       }
     },
-    "/user/findAllUsers": {
+    "/user": {
       "get": {
         "summary": "Search all users",
         "description": "Route responsible for fetching all users",
@@ -90,7 +90,7 @@
         }
       }
     },
-    "/user/searchById/{id}": {
+    "/user/{id}": {
       "get": {
         "summary": "Search user by id",
         "description": "Route responsible for searching for user by id",
@@ -126,7 +126,7 @@
         }
       }
     },
-    "/user/updateUser/{id}": {
+    "/user/{id}": {
       "patch": {
         "summary": "Update user by id",
         "description": "Route responsible for editing the user by id",
@@ -178,7 +178,7 @@
         }
       }
     },
-    "/user/deleteUser/{id}": {
+    "/user/{id}": {
       "delete": {
         "summary": "Delete user by id",
         "description": "Route responsible for Delete the user by id",
@@ -403,7 +403,7 @@
         }
       }
     },
-    "/news/searchById/{id}": {
+    "/news/{id}": {
       "patch": {
         "summary": "Search post by id",
         "description": "Route responsible for fetching post by id",
@@ -467,7 +467,7 @@
         }
       }
     },
-    "/news/updatePost/{id}": {
+    "/news/{id}": {
       "patch": {
         "summary": "Update a post",
         "description": "Route responsible for updating a Post",
