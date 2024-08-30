@@ -10,6 +10,10 @@
   },
   "servers": [
     {
+      "url": "https://mern-journal-9t10.onrender.com",
+      "description": "Render Server"
+    },
+    {
       "url": "http://localhost:3001",
       "description": "Local Server"
     }
