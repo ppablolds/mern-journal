@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Últimas Notícias Documentação",
+    "title": "Últimas Notícias API",
     "description": "Na documentação você poderá consultar os end-points da API e também testar todas as rotas disponíveis. Não esqueça de se registrar e realizar a autorização.",
     "contacts": {
       "email": "pablosilvaaluno@outlook.com"
