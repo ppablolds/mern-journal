@@ -15,7 +15,7 @@ export const authMiddleware = async (req, res, next) => {
     const parts = authorization.split(" ");
 
     if (parts.length !== 2) {
-      res.status(401).json({ message: "Usuário não logado."});
+      res.status(401).json({ message: "Usuário não logado." });
     }
 
     const [schema, token] = parts;
