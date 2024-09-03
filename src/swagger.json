@@ -19,7 +19,7 @@
     }
   ],
   "paths": {
-    "/user/": {
+    "/user/create": {
       "post": {
         "summary": "Create a new user",
         "description": "Route responsible for creating a new user",
@@ -61,7 +61,7 @@
         }
       }
     },
-    "/user": {
+    "/user/findall": {
       "get": {
         "summary": "Search all users",
         "description": "Route responsible for fetching all users",
@@ -90,7 +90,7 @@
         }
       }
     },
-    "/user/{id}": {
+    "/user/findbyid/{id}": {
       "get": {
         "summary": "Search user by id",
         "description": "Route responsible for searching for user by id",
@@ -126,7 +126,7 @@
         }
       }
     },
-    "/user/{id}": {
+    "/user/updateuser/{id}": {
       "patch": {
         "summary": "Update user by id",
         "description": "Route responsible for editing the user by id",
@@ -178,7 +178,7 @@
         }
       }
     },
-    "/user/{id}": {
+    "/user/deleteuser/{id}": {
       "delete": {
         "summary": "Delete user by id",
         "description": "Route responsible for Delete the user by id",
@@ -230,7 +230,7 @@
         }
       }
     },
-    "/auth": {
+    "/auth/login": {
       "post": {
         "summary": "Login to Breaking News",
         "description": "Route responsible for logging in a registered user",
@@ -262,7 +262,7 @@
         }
       }
     },
-    "/news/": {
+    "/news/createPost": {
       "post": {
         "summary": "Create a new post",
         "description": "Route responsible for creating a new Post",
@@ -310,7 +310,7 @@
         }
       }
     },
-    "/news": {
+    "/news/getAllPosts": {
       "get": {
         "summary": "Search all posts",
         "description": "Route responsible for fetching all posts",
@@ -403,7 +403,7 @@
         }
       }
     },
-    "/news/{id}": {
+    "/news/findPostById/{id}": {
       "patch": {
         "summary": "Search post by id",
         "description": "Route responsible for fetching post by id",
@@ -467,7 +467,7 @@
         }
       }
     },
-    "/news/{id}": {
+    "/news/updatePost/{id}": {
       "patch": {
         "summary": "Update a post",
         "description": "Route responsible for updating a Post",
@@ -521,7 +521,7 @@
         }
       }
     },
-    "/news/{id}": {
+    "/news/deletePost/{id}": {
       "delete": {
         "summary": "Delete a post",
         "description": "Route responsible for deleting a Post",
@@ -602,6 +602,50 @@
                 "Comment": {
                   "value": {
                     "message": "Comentário legal"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/news/comment/{idNews}/{idComment}": {
+      "delete": {
+        "summary": "Delete a post",
+        "description": "Route responsible for delete comment a post",
+        "tags": ["Post"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "description": "User ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Comment"
+              },
+              "examples": {
+                "Comment": {
+                  "value": {
+                    "message": ""
                   }
                 }
               }
