@@ -79,7 +79,7 @@ const topPostsController = async (req, res) => {
     const post = await newsService.topNewsService();
 
     if (!post) {
-      return res.status(400);
+      return res.status(400).json({ message: "Não há posts." });
     }
 
     res.status(200).json({

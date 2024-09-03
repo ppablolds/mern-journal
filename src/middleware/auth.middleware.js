@@ -9,7 +9,7 @@ export const authMiddleware = async (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      res.status(401).json({ message: "Invalid authorization" });
+      res.status(401).json({ message: "Autorização inválida." });
     }
 
     const parts = authorization.split(" ");
@@ -26,13 +26,13 @@ export const authMiddleware = async (req, res, next) => {
 
     jwt.verify(token, process.env.SECRET_KEY, async (error, decoded) => {
       if (error) {
-        res.status(401);
+        res.status(401).json({ message: "Token Inválido." });
       }
 
       const user = await userService.findByIdService(decoded.id);
 
       if (!user || !user.id) {
-        res.status(401);
+        res.status(401).json({ message: "Não autorizado." });
       }
 
       req.userId = user.id;
