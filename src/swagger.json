@@ -630,9 +630,16 @@
         "parameters": [
           {
             "in": "path",
-            "name": "id",
+            "name": "idNews",
             "type": "string",
-            "description": "User ID",
+            "description": "News ID",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "idComment",
+            "type": "string",
+            "description": "Comment ID",
             "required": true
           }
         ],
